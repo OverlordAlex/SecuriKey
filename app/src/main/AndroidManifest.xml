@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name=".SecuriKey"
+            android:name=".SecureKeyboard"
             android:label="@string/securikey"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <meta-data
