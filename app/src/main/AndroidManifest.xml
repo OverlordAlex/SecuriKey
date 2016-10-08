@@ -8,7 +8,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service android:name=".SecuriKey"
+        <service android:name=".SecureKeyboard"
             android:label="@string/securikey"
             android:permission="android.permission.BIND_INPUT_METHOD"
             >
