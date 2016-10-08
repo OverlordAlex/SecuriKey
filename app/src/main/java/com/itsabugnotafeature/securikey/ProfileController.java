@@ -89,4 +89,17 @@ public class ProfileController {
         return current_profile;
     }
 
+    public ArrayList<String> getMatchingProfiles(String current) {
+        // TODO - fuzzy matching?
+        ArrayList<String> matched_profiles = new ArrayList<>();
+
+        for (Profile profile : profiles) {
+            if (profile.getName().contains(current)) {
+                matched_profiles.add(profile.getName());
+            }
+        }
+
+        return matched_profiles;
+    }
+
 }
