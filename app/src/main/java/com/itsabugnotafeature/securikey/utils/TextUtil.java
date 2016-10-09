@@ -13,6 +13,13 @@ public class TextUtil {
         return true;
     }
 
+    public static boolean hasValue(CharSequence charSequence) {
+        if (charSequence == null || charSequence.length() == 0) {
+            return false;
+        }
+        return true;
+    }
+
     public static class EmptyStringException extends Exception {
 
         public EmptyStringException(String message) {

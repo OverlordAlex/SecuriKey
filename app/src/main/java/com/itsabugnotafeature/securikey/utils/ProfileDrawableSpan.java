@@ -21,12 +21,11 @@ import android.text.SpannableString;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.ReplacementSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
 import com.itsabugnotafeature.securikey.Profile;
+import com.itsabugnotafeature.securikey.models.ProfileController;
 
 import java.lang.ref.WeakReference;
 
@@ -187,7 +186,6 @@ public class ProfileDrawableSpan extends CustomClickableReplacementSpan {
 
     @Override
     public void onClick(View widget) {
-        Log.i(LOG_TAG, "onClick");
-        // TODO
+        ProfileController.getInstance().onProfileSelected(profile);
     }
 }

@@ -22,6 +22,7 @@ public class ProfileController {
     public interface ProfileSuggestionListener {
         void onNewProfileSuggestions(String matchedText, List<Profile> profiles);
         void onNewProfileCreated(Profile profile);
+        void onProfileClickedProfile(Profile profile);
     }
 
     private static final ProfileController INSTANCE = new ProfileController();
@@ -80,6 +81,16 @@ public class ProfileController {
     public Pair<String, List<Profile>> getProfilesMatchingSuggestionText() {
         return Pair.create(suggestionMatchingText,
                 getProfilesMatchingTextInternal(suggestionMatchingText));
+    }
+
+    public void onProfileSelected(Profile profile) {
+        if (profile == null) {
+            return;
+        }
+
+        if (listener != null) {
+            listener.onProfileClickedProfile(profile);
+        }
     }
 
     public void createNewProfile(String profileName) {

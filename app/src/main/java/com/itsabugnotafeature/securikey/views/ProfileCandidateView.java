@@ -72,8 +72,20 @@ public class ProfileCandidateView extends LinearLayout {
         suggestionView.setGravity(Gravity.CENTER_VERTICAL);
         suggestionView.setSingleLine(true);
         suggestionView.setMovementMethod(ProfileDrawableMovementMethod.getInstance());
+        suggestionView.setHint("Enter a profile name");
+        suggestionView.setFocusable(false);
 
         addView(suggestionView, params);
+    }
+
+    public void prepareToReceiveMasterPassword() {
+        suggestionView.setHint("Enter master password");
+        suggestionView.setText("");
+        profiles = new LinkedList<>();
+    }
+
+    public void updateMasterPasswordText(String updatedText) {
+        suggestionView.setText(updatedText);
     }
 
     public void setProfileSuggestions(String matchedText, List<Profile> profiles) {
@@ -90,6 +102,8 @@ public class ProfileCandidateView extends LinearLayout {
                     constructSuggestionText(matchedText, this.profiles, suggestionView.getTextSize());
             suggestionView.setText(text);
         }
+
+        suggestionView.setHint("Enter a profile name");
     }
 
     private CharSequence constructSuggestionText(String matchedText, List<Profile> profiles, float textSize) {
