@@ -1,45 +1,51 @@
-package com.itsabugnotafeature.securikey;
-
-import java.util.ArrayList;
-
 /**
  * Created by alex on 2016/10/08.
  */
 
-// TODO - load the default constraints from settings
+package com.itsabugnotafeature.securikey;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.itsabugnotafeature.securikey.utils.TextUtil;
+import com.itsabugnotafeature.securikey.utils.TextUtil.EmptyStringException;
 
 /**
  * This class represents a password profile.
  */
 public abstract class Profile {
-    ArrayList<Constraint> constraints = new ArrayList<>();
-    String name = "";
-    String salt = name;
+    protected final List<Constraint> constraints;
+    protected final String name;
+    protected final String salt;
 
-    public Profile() {
-        this.name = "DefaultProfile";
-        this.salt = "DefaultProfile";
-    }
-
-    public Profile(String name, String salt) {
-        this.name = name;
-        this.salt = salt;
-    }
-
-    public Profile(String name) {
+    public Profile(String name) throws EmptyStringException {
         this(name, name);
     }
 
-    public void setName(String name) {
+    public Profile(String name, String salt) throws EmptyStringException {
+        this(name, salt, null);
+    }
+
+    public Profile(String name, String salt, List<Constraint> constraints)
+            throws EmptyStringException {
+
+        if (!TextUtil.hasValue(name) || !TextUtil.hasValue(salt)) {
+            throw new EmptyStringException("name and salt must have a value");
+        }
+
+        if (constraints == null || constraints.isEmpty()) {
+            // TODO: load default constraints
+            this.constraints = new ArrayList<>();
+        } else {
+            this.constraints = constraints;
+        }
+
         this.name = name;
+        this.salt = salt;
     }
 
     public String getName() {
         return this.name;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public String getSalt() {
@@ -50,7 +56,7 @@ public abstract class Profile {
         this.constraints.add(constraint);
     }
 
-    public ArrayList<Constraint> getConstraints() {
+    public List<Constraint> getConstraints() {
         return this.constraints;
     }
 
@@ -61,6 +67,21 @@ public abstract class Profile {
      *
      * @return the hashed master password
      */
-    public abstract String getHash(String masterPassword);
+    public abstract String getPasswordHash(String masterPassword);
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Profile)) return false;
+
+        Profile profile = (Profile) o;
+
+        return name.equals(profile.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

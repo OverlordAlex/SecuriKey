@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.itsabugnotafeature.securikey">
 
@@ -8,11 +9,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service android:name=".SecureKeyboard"
+        <service
+            android:name=".SecureKeyboard"
             android:label="@string/securikey"
-            android:permission="android.permission.BIND_INPUT_METHOD"
-            >
-            <meta-data android:name="android.view.im" android:resource="@xml/method"/>
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
