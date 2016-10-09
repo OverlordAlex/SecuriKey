@@ -8,7 +8,6 @@ import android.support.v4.util.Pair;
 
 import com.itsabugnotafeature.securikey.DefaultProfile;
 import com.itsabugnotafeature.securikey.Profile;
-import com.itsabugnotafeature.securikey.utils.TextUtil;
 import com.itsabugnotafeature.securikey.utils.TextUtil.EmptyStringException;
 
 import java.util.HashMap;
@@ -137,85 +136,4 @@ public class ProfileController {
 
         return matchedProfiles;
     }
-
-    //    public boolean profileExists(Profile profile) {
-//        return profiles.contains(profile);
-//    }
-//
-//    public boolean profileExists(String name) {
-//        Profile profile = getProfile(name);
-//        if (profile != null) {
-//            return true;
-//        }
-//
-//        return false;
-//    }
-//
-//    public Profile getProfile(String name) {
-//        for (Profile profile : profiles) {
-//            if (profile.getName().equals(name)) {
-//                return profile;
-//            }
-//        }
-//
-//        return null;
-//    }
-//
-//    public Profile getMatchingProfile(String name) {
-//        // TODO - fuzzy matching?
-//        for (Profile profile : profiles) {
-//            if (profile.getName().contains(name)) {
-//                return profile;
-//            }
-//        }
-//
-//        return null;
-//    }
-//
-//    public Profile addProfile(Profile profile) {
-//        if (profiles.contains(profile)) {
-//            return null;
-//        }
-//
-//        profiles.add(profile);
-//        return profile;
-//    }
-//
-//    public Profile addProfile(String name) {
-//        try {
-//            Profile profile = new DefaultProfile(name);
-//            return addProfile(profile);
-//        } catch (TextUtil.EmptyStringException e) {
-//            return null;
-//        }
-//    }
-//
-//    public Profile getCurrentProfile() {
-//        try {
-//            return profiles.get(currentProfilePosition);
-//        } catch (IndexOutOfBoundsException e) {
-//            return null;
-//        }
-//    }
-//
-//    public void setCurrentProfile(Profile profile) {
-//        if (!profiles.contains(profile)) {
-//            addProfile(profile);
-//        }
-//        currentProfilePosition = profiles.indexOf(profile);
-//    }
-//
-//    public ArrayList<String> getMatchingProfiles(String current) {
-//        // TODO - fuzzy matching?
-//        ArrayList<String> matched_profiles = new ArrayList<>();
-//
-//        for (Profile profile : profiles) {
-//            if (profile.getName().contains(current)) {
-//                matched_profiles.add(profile.getName());
-//            }
-//        }
-//
-//        return matched_profiles;
-//    }
-
 }

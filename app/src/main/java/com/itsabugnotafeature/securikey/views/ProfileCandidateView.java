@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.itsabugnotafeature.securikey.Profile;
+import com.itsabugnotafeature.securikey.R;
 import com.itsabugnotafeature.securikey.SecureKeyboard;
 import com.itsabugnotafeature.securikey.utils.NewProfileDrawableSpan;
 import com.itsabugnotafeature.securikey.utils.ProfileDrawableMovementMethod;
@@ -74,6 +75,7 @@ public class ProfileCandidateView extends LinearLayout {
         suggestionView.setMovementMethod(ProfileDrawableMovementMethod.getInstance());
         suggestionView.setHint("Enter a profile name");
         suggestionView.setFocusable(false);
+        suggestionView.setTextColor(Color.BLACK);
 
         addView(suggestionView, params);
     }
@@ -82,6 +84,7 @@ public class ProfileCandidateView extends LinearLayout {
         suggestionView.setHint("Enter master password");
         suggestionView.setText("");
         profiles = new LinkedList<>();
+        suggestionView.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_lock_black_24dp), null, null, null);
     }
 
     public void updateMasterPasswordText(String updatedText) {
@@ -103,6 +106,7 @@ public class ProfileCandidateView extends LinearLayout {
             suggestionView.setText(text);
         }
 
+        suggestionView.setCompoundDrawables(null, null, null, null);
         suggestionView.setHint("Enter a profile name");
     }
 
