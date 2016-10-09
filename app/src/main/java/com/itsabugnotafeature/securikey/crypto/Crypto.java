@@ -1,4 +1,4 @@
-package com.itsabugnotafeature.securikey;
+package com.itsabugnotafeature.securikey.crypto;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -3,10 +3,16 @@ package com.itsabugnotafeature.securikey;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.InputConnection;
+
+import com.itsabugnotafeature.securikey.models.ProfileController;
+import com.itsabugnotafeature.securikey.models.ProfileController.ProfileSuggestionListener;
+import com.itsabugnotafeature.securikey.views.ProfileCandidateView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +25,8 @@ import java.util.List;
 
 public class SecureKeyboard
         extends InputMethodService
-        implements KeyboardView.OnKeyboardActionListener {
+        implements KeyboardView.OnKeyboardActionListener, ProfileSuggestionListener {
+    private static final String LOG_TAG = "SecureKeyboard";
 
     private KeyboardView kv;
     private Keyboard keyboard;
@@ -30,16 +37,16 @@ public class SecureKeyboard
     private String profileString = "";
     private String masterPasswordString = "";
 
-    private ProfileController profileController = null;
-
-    CandidateView candidateView = null;
+    private ProfileCandidateView candidateView = null;
 
     private CompletionInfo[] completions;
 
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
+
         switch(primaryCode){
+
         case Keyboard.KEYCODE_DELETE :
             if (entering_masterPassword) {
                 if( masterPasswordString.length() > 0) {
@@ -51,42 +58,52 @@ public class SecureKeyboard
                 }
             }
             break;
+
         case Keyboard.KEYCODE_SHIFT:
             currentlyCapslock = !currentlyCapslock;
             keyboard.setShifted(currentlyCapslock);
             kv.invalidateAllKeys();
             break;
+
         case Keyboard.KEYCODE_DONE:
             ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
             break;
+
          case 9999:
              if (entering_masterPassword) {
                  // user has entered the masterpassword
                  // put in the encrypted string
-
-                 try {
                      // TODO this needs to be done
-                     String password = profileController.getCurrentProfile().getHash(masterPasswordString);
-
-                     ic.commitText(password, password.length() + 1);
-
-                     masterPasswordString = "";
-                     profileString = "";
-                 } catch (Exception excp) {
-                     // TODO
-                 }
+//                     String password = ProfileController
+//                             .getInstance()
+//                             .getCurrentProfile()
+//                             .getPasswordHash(masterPasswordString);
+//
+//                     ic.commitText(password, password.length() + 1);
+//
+//                     masterPasswordString = "";
+//                     profileString = "";
              } else {
                  // user has finished entering the key word
                  // TODO - everything about this
-                 Profile new_profile = profileController.getProfile(profileString);
-
-                 if (new_profile == null) {
-                     new_profile = profileController.addNewProfile(profileString);
-                 }
-
-                 profileController.setProfile(new_profile);
+//                 Profile new_profile = ProfileController
+//                         .getInstance()
+//                         .getProfile(profileString);
+//
+//                 if (new_profile == null) {
+//                     new_profile = ProfileController
+//                             .getInstance()
+//                             .addProfile(profileString);
+//                 }
+//
+//                 if (new_profile == null) {
+//                     // TODO: give error feedback to user
+//                 }
+//
+//                 ProfileController.getInstance().setCurrentProfile(new_profile);
              }
              entering_masterPassword = !entering_masterPassword;
+
         default:
             char code = (char)primaryCode;
             if(Character.isLetter(code) && currentlyCapslock){
@@ -138,26 +155,33 @@ public class SecureKeyboard
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
 
-        profileController = new ProfileController();
+        Log.i(LOG_TAG, "Registering keyboard for callbacks.");
+        ProfileController.getInstance().setListener(this);
+
+        setCandidatesViewShown(true);
 
         return kv;
     }
 
     @Override
     public View onCreateCandidatesView() {
-        candidateView = new CandidateView(this);
+        candidateView = new ProfileCandidateView(this);
         candidateView.setService(this);
+
+        Pair<String, List<Profile>> suggestions =
+                ProfileController.getInstance().getProfilesMatchingSuggestionText();
+        candidateView.setProfileSuggestions(suggestions.first, suggestions.second);
+
         return candidateView;
     }
-
-
 
     public void pickSuggestionManually(int index) {
         if (completions != null && index >= 0 && index < completions.length) {
             CompletionInfo ci = completions[index];
             getCurrentInputConnection().commitCompletion(ci);
             if (candidateView != null) {
-                candidateView.clear();
+                // TODO
+//                candidateView.clear();
             }
 
             currentlyCapslock = false;
@@ -170,29 +194,34 @@ public class SecureKeyboard
             if (entering_masterPassword) {
                 // user has entered the masterpassword
                 // put in the encrypted string
-
-                try {
-                    // TODO this needs to be done
-                    String password = profileController.getCurrentProfile().getHash(masterPasswordString);
-
-                    InputConnection ic = getCurrentInputConnection();
-                    ic.commitText(password, password.length() + 1);
-
-                    masterPasswordString = "";
-                    profileString = "";
-                } catch (Exception excp) {
-                    // TODO
-                }
+//                String password = ProfileController
+//                        .getInstance()
+//                        .getCurrentProfile()
+//                        .getPasswordHash(masterPasswordString);
+//
+//                InputConnection ic = getCurrentInputConnection();
+//                ic.commitText(password, password.length() + 1);
+//
+//                masterPasswordString = "";
+//                profileString = "";
             } else {
                 // user has finished entering the key word
                 // TODO - everything about this
-                Profile new_profile = profileController.getProfile(profileString);
-
-                if (new_profile == null) {
-                    new_profile = profileController.addNewProfile(profileString);
-                }
-
-                profileController.setProfile(new_profile);
+//                Profile new_profile = ProfileController
+//                        .getInstance()
+//                        .getProfile(profileString);
+//
+//                if (new_profile == null) {
+//                    new_profile = ProfileController
+//                            .getInstance()
+//                            .addProfile(profileString);
+//                }
+//
+//                if (new_profile == null) {
+//                    // TODO: give error feedback to user
+//                }
+//
+//                ProfileController.getInstance().setCurrentProfile(new_profile);
             }
             entering_masterPassword = !entering_masterPassword;
         }
@@ -222,14 +251,15 @@ public class SecureKeyboard
 
     public void setSuggestions(List<String> suggestions, boolean completions,
                                boolean typedWordValid) {
-        if (suggestions != null && suggestions.size() > 0) {
-            setCandidatesViewShown(true);
-        } else if (isExtractViewShown()) {
-            setCandidatesViewShown(true);
-        }
-        if (candidateView != null) {
-            candidateView.setSuggestions(suggestions, completions, typedWordValid);
-        }
+//        if (suggestions != null && suggestions.size() > 0) {
+//            setCandidatesViewShown(true);
+//        } else if (isExtractViewShown()) {
+//            setCandidatesViewShown(true);
+//        }
+//        if (candidateView != null) {
+            // TODO
+//            candidateView.setSuggestions(suggestions, completions, typedWordValid);
+//        }
     }
 
     /**
@@ -238,15 +268,17 @@ public class SecureKeyboard
      * candidates.
      */
     private void updateCandidates() {
-        ArrayList<String> profile_suggestions = new ArrayList<>();
-
-        String new_profile = profileString + " (new)";
-
-        profile_suggestions.add(new_profile);
-
-        profile_suggestions.addAll(profileController.getMatchingProfiles(profileString));
-
-        setSuggestions(profile_suggestions, false, true);
+        ProfileController.getInstance().setSuggestionMatchingText(profileString);
     }
 
+    public void onNewProfileSuggestions(String matchedText, List<Profile> profiles) {
+        Log.i(LOG_TAG, "onNewProfileSuggestions()");
+        if (candidateView != null) {
+            candidateView.setProfileSuggestions(matchedText, profiles);
+        }
+    }
+
+    public void onNewProfileCreated(Profile profile) {
+        profileString = profile.getName();
+    }
 }
