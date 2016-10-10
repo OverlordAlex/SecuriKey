@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -83,6 +85,7 @@ public class ProfileCandidateView extends LinearLayout {
     public void prepareToReceiveMasterPassword() {
         suggestionView.setHint("Enter master password");
         suggestionView.setText("");
+        suggestionView.setTransformationMethod(PasswordTransformationMethod.getInstance());
         profiles = new LinkedList<>();
         suggestionView.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_lock_black_24dp), null, null, null);
     }
@@ -108,6 +111,7 @@ public class ProfileCandidateView extends LinearLayout {
 
         suggestionView.setCompoundDrawables(null, null, null, null);
         suggestionView.setHint("Enter a profile name");
+        suggestionView.setTransformationMethod(SingleLineTransformationMethod.getInstance());
     }
 
     private CharSequence constructSuggestionText(String matchedText, List<Profile> profiles, float textSize) {
