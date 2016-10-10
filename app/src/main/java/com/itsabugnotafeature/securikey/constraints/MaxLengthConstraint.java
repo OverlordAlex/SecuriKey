@@ -14,10 +14,15 @@ public class MaxLengthConstraint extends Constraint {
 
     @Override
     public String apply(String password) throws ConstraintException {
-        if (password != null) {
-            password = password.substring(0, Math.min(password.length(), maxLength));
+        try {
+            if (password != null) {
+                password = password.substring(0, Math.min(password.length(), maxLength));
+            }
+
+            return password;
+        } catch (Exception ex) {
+            throw new ConstraintException();
         }
 
-        return password;
     }
 }
