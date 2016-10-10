@@ -24,7 +24,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.itsabugnotafeature.securikey.Profile;
+import com.itsabugnotafeature.securikey.profiles.Profile;
 import com.itsabugnotafeature.securikey.models.ProfileController;
 
 import java.lang.ref.WeakReference;

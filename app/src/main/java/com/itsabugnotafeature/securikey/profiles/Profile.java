@@ -2,11 +2,12 @@
  * Created by alex on 2016/10/08.
  */
 
-package com.itsabugnotafeature.securikey;
+package com.itsabugnotafeature.securikey.profiles;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itsabugnotafeature.securikey.constraints.Constraint;
 import com.itsabugnotafeature.securikey.utils.TextUtil;
 import com.itsabugnotafeature.securikey.utils.TextUtil.EmptyStringException;
 

@@ -18,6 +18,7 @@ import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
+import com.itsabugnotafeature.securikey.profiles.Profile;
 import com.itsabugnotafeature.securikey.models.ProfileController;
 import com.itsabugnotafeature.securikey.models.ProfileController.ProfileSuggestionListener;
 import com.itsabugnotafeature.securikey.utils.TextUtil;

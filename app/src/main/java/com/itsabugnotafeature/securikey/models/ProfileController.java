@@ -6,8 +6,8 @@ package com.itsabugnotafeature.securikey.models;
 
 import android.support.v4.util.Pair;
 
-import com.itsabugnotafeature.securikey.DefaultProfile;
-import com.itsabugnotafeature.securikey.Profile;
+import com.itsabugnotafeature.securikey.profiles.DefaultProfile;
+import com.itsabugnotafeature.securikey.profiles.Profile;
 import com.itsabugnotafeature.securikey.utils.TextUtil.EmptyStringException;
 
 import java.util.HashMap;

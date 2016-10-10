@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.itsabugnotafeature.securikey.Profile;
+import com.itsabugnotafeature.securikey.profiles.Profile;
 import com.itsabugnotafeature.securikey.R;
 import com.itsabugnotafeature.securikey.SecureKeyboard;
 import com.itsabugnotafeature.securikey.utils.NewProfileDrawableSpan;
