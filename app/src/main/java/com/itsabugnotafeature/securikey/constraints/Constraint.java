@@ -11,6 +11,8 @@ package com.itsabugnotafeature.securikey.constraints;
  */
 public abstract class Constraint {
 
+    // TODO - This needs to inherit from View or something, and should be responsible for itself
+
     /**
      * Apply this constraint to the given password
      * @param password The password which should be constrained

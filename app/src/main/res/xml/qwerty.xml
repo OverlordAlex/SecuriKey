@@ -80,21 +80,12 @@
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-3" android:keyLabel="DONE"
-            android:keyWidth="15%p" android:keyEdgeFlags="left"/>
-        <!--
             android:codes: -101 is not a framework-defined key code but a key code that is
             privately defined in com.example.android.softkeyboard.LatinKeyboardView.
         -->
-        <Key android:codes="-101" android:keyLabel="SET"
-             android:keyWidth="10%p"/>
-        <Key android:codes="32" android:keyLabel="___"
-             android:keyWidth="30%p" android:isRepeatable="true"/>
-        <Key android:codes="46,44" android:keyLabel=". ,"
-             android:keyWidth="15%p"/>
-        <Key android:codes="10" android:keyLabel="RET"
-             android:keyWidth="20%p" android:keyEdgeFlags="right"/>
-        <Key android:codes="9999" android:keyLabel="PP"
-             android:isSticky="true"/>
+        <Key android:codes="-101" android:keyLabel="SETTINGS" android:keyEdgeFlags="left" android:keyWidth="25%p"/>
+        <Key android:codes="32" android:keyLabel="___"  android:isRepeatable="true" android:keyWidth="40%p"/>
+        <Key android:codes="46,44" android:keyLabel=". ," android:keyWidth="10%p"/>
+        <Key android:codes="9999" android:keyLabel="DONE" android:keyEdgeFlags="right" android:keyWidth="25%p"/>
     </Row>
 </Keyboard>
