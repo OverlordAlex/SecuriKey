@@ -36,14 +36,15 @@ public class DefaultProfile extends Profile {
 
         do {
             try {
-                // TODO - actually implement the hash
-                String hash = Crypto.md5(masterPassword + this.salt);
+                // TODO - actually implement the hash/salt
+                String hash = Crypto.md5(masterPassword, this.salt);
+                String hash2 = Crypto.getStrongHash(masterPassword, this.salt);
 
                 for (Constraint constraint : this.constraints) {
                     hash = constraint.apply(hash);
                 }
 
-                return hash;
+                return hash2;
 
             } catch (ConstraintException exc) {
                 // log something
