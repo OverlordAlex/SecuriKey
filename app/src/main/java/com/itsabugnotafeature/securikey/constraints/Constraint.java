@@ -21,4 +21,12 @@ public abstract class Constraint {
      */
     public abstract String apply(String password) throws ConstraintException;
 
+    /**
+     * Check that this constraint matches the given password
+     * @param password the password to be checked
+     * @return true if the password matches the constraint, false otherwise
+     * @throws ConstraintException if something goes wrong
+     */
+    public abstract boolean check(String password) throws ConstraintException;
+
 }

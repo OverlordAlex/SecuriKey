@@ -17,6 +17,7 @@ import javax.crypto.spec.PBEKeySpec;
  * TODO - alhorithms return a byte array,
  *                  this provides much flexibility but we need to be smart about generating them
  * TODO - Transform the salt?
+ * TODO - add bcrypt or scrypt or something - PBKDF2 can be brute-forced on GPUs
  */
 
 public class Crypto {

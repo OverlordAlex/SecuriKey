@@ -25,4 +25,9 @@ public class MaxLengthConstraint extends Constraint {
         }
 
     }
+
+    @Override
+    public boolean check(String password) throws ConstraintException {
+        return password.length() <= maxLength;
+    }
 }

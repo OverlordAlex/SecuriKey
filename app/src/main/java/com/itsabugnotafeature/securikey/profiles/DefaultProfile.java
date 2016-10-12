@@ -31,20 +31,26 @@ public class DefaultProfile extends Profile {
 
     @Override
     public String getPasswordHash(String masterPassword) {
+        // TODO - move this into the superclass
         int max_attempts = 5;
         int attempts = 1;
 
         do {
             try {
                 // TODO - actually implement the hash/salt
-                String hash = Crypto.md5(masterPassword, this.salt);
-                String hash2 = Crypto.getStrongHash(masterPassword, this.salt);
+                String hash = Crypto.getStrongHash(masterPassword, this.salt);
 
                 for (Constraint constraint : this.constraints) {
                     hash = constraint.apply(hash);
                 }
 
-                return hash2;
+                for (Constraint constraint : this.constraints) {
+                    if (!constraint.check(hash)) {
+                        continue;
+                    };
+                }
+
+                return hash;
 
             } catch (ConstraintException exc) {
                 // log something
